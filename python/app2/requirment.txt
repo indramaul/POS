@@ -1,0 +1,4 @@
+flask
+flask-mysql
+python-escpos
+Flask-API

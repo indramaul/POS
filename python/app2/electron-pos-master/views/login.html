@@ -1,0 +1,21 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h2><span class="text-warning">UT</span> <span class="text-success">POS</span></h2>
+                <p>Aplikasi penjualan versi 0.0.1</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="jumbotron">
+            <p>Login Aplikasi</p>
+            <button ng-repeat="kasir in vm.kasir" type="button" class="buttons btn btn-success"
+                    ng-click="vm.GoToMenu(kasir.Id)">
+                <span class="glyphicon glyphicon-user"></span> {{kasir.Name}}
+            </button>
+        </div>
+    </div>
+</div>

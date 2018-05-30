@@ -1,0 +1,95 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="login"><i class="fa fa-home" aria-hidden="true"></i> {{vm.toko}} </a>
+        </div>
+        <ul class="nav navbar-nav pull-right">
+            <li ng-show="vm.show_bayar"><a href="javascript:void(0)" ng-click="vm.back()"><i class="fa fa-arrow-left"
+                                                                                             aria-hidden="true"></i></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="content">
+    <div class="row">
+        <div class="col-sm-8">
+            <div ng-hide="vm.show_bayar">
+                <div class="card buttons" ng-repeat="makanan in vm.makanan" ng-click="vm.add(makanan)">
+                    <img src="./images/{{makanan.gambar}}" alt="Avatar" style="width:100%">
+                    <div>
+                        <h4><b>{{makanan.Name}}</b></h4>
+                        <p>{{makanan.harga | number}}</p>
+                    </div>
+                </div>
+                <div class="card buttons" ng-repeat="minuman in vm.minuman" ng-click="vm.add(minuman)">
+                    <img src="./images/{{minuman.gambar}}" alt="Avatar" style="width:100%">
+                    <div>
+                        <h4><b>{{minuman.Name}}</b></h4>
+                        <p>{{minuman.harga | number}}</p>
+                    </div>
+                </div>
+
+                <!--<button class="buttons btn btn-primary" ng-repeat="minuman in vm.minuman" ng-click="vm.add(minuman)" style="background-image: url(././images/{{minuman.gambar}});">{{minuman.Name}}</button>-->
+            </div>
+            <div ng-show="vm.show_bayar">
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg" name="transaksi_bayar"
+                           value="{{vm.bayar_input | number}}">
+                </div>
+                <div class="row calc-content">
+                    <button class="buttons btn btn-default col-md-4 calc-number" ng-repeat="number in vm.number"
+                            ng-click="vm.clickKeyboard(number)">{{number}}
+                    </button>
+                    <button class="buttons btn btn-info col-md-4 calc-number" ng-click="vm.clearBayar()">Clear</button>
+                    <!--<button class="buttons btn btn-warning col-md-4 calc-number" ng-click="vm.checkout()">Print</button>-->
+                </div>
+                <div class="suggest">
+                    <!--<button class="buttons btn btn-basic" ng-click="vm.clickSuggest()">Rp. {{vm.getSuggestBayar() |-->
+                        <!--number}},- -->
+                    <!--</button>-->
+                    <button ng-repeat="bayar in vm.sugest_bayar" class="buttons btn btn-success btn-basic" ng-click="vm.clickSuggest(bayar)">Rp. {{bayar | number}},-
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="sidebar-right">
+    <div class="col-sm-12">
+        <div class="box card name">
+            <div class="text-info">{{vm.cashier_name}}</div>
+            <div class="text-info">{{vm.toko}}</div>
+            <div class="text-info">{{vm.toko_alamat}}</div>
+        </div>
+        <h3>Detail Pesanan</h3>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in vm.order">
+                <div md-swipe-left="vm.onSwipeLeft($index)">
+                    <div class="label label-success">{{item.transaksi_jumlah}}</div>
+                    {{item.nama}}
+                    <button class="btn btn-danger btn-xs pull-right btn-delete" ng-click="vm.deleteItem($index)" ng-show="vm.show_delete[$index]">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <div class="pull-right">Rp. {{item.transaksi_total | number}}</div>
+                </div>
+            </li>
+        </ul>
+        <span class="total list">Total : Rp. {{vm.getSum() | number}}</span>
+        <div class="pull-right">
+                    <span class="btn btn-default" ng-click="vm.clearOrder()"
+                          ng-disabled="!vm.order.length" ng-hide="vm.show_bayar && vm.order.length">Clear</span>
+
+        </div>
+        <button class="btn btn-info col-md-3 col-sm-12 col-xs-12 btn-bayar" ng-click="vm.showBayar()"
+              ng-disabled="!vm.order.length" ng-hide="vm.show_bayar">
+                                      Bayar
+                                      <span class="total pull-right">Rp. {{vm.getSum() | number}}</span>
+        </button>
+        <!--<button class="buttons btn btn-warning col-md-4 calc-number" ng-click="vm.checkout()">Print</button>-->
+        <button class="btn btn-info col-md-3 col-sm-12 col-xs-12 btn-warning btn-bayar btn-print" ng-click="vm.checkout()"
+              ng-hide="!vm.show_bayar"> Print
+        </button>
+
+    </div>
+
+</div>

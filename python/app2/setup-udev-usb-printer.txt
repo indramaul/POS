@@ -1,0 +1,15 @@
+
+sudo useradd -G dialout USERNAME
+
+# lsusb  Bus 002 Device 001: ID 1a2b:1a2b Device name
+nano /etc/udev/rules.d/99-escpos.rules
+
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0416", ATTRS{idProduct}=="5011", MODE="0664$, GROUP="dialout"
+
+sudo udevadm trigger
+
+sudo service udev restart
+
+sudo udevadm control --reload
+
+
